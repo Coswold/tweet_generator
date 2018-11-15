@@ -15,8 +15,7 @@ def home():
     sample = Sampling(g_dict)
     sample.get_cume()
     first_word = sample.sample()
-    chain = markov(txt)
-    sentence = build_string(chain, 10, first_word)
+    sentence = build_string(10, first_word, txt)
 
     return sentence	 
 
