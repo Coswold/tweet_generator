@@ -92,10 +92,12 @@ class LinkedList(object):
         TODO: Worst case running time: O(???) Why and under what conditions?"""
         # TODO: Loop through all nodes to find item where quality(item) is True
         current = self.head
-        while current.next != None:
-            if current.data == quality():
+        while current != None:
+            if quality(current.data) == True:
                 return current.data
-            current = current.next
+            else:
+                current = current.next
+        return None
         # TODO: Check if node's data satisfies given quality function
 
     def delete(self, item):
@@ -109,12 +111,14 @@ class LinkedList(object):
             if current.data == item:
                 if self.head == current:
                     self.head = current.next
+                    if current.next == None:
+                        self.tail = None
                 elif current == self.tail:
                     self.tail = prev
                     self.tail.next = None
                 else:
                     prev.next = current.next
-                return "Deleted!"
+                return
             prev = current
             current = current.next
         raise ValueError('Item not found: {}'.format(item))
