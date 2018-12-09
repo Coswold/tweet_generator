@@ -5,7 +5,6 @@ def markov (txt, window):
     new = []
     i = 0
     words = window.items()
-    print(words)
     while i < len(txt) - 1:
         j = len(words) - 1
         if txt[i] == words[len(words) - 1]:
@@ -18,7 +17,6 @@ def markov (txt, window):
                     break
             if j == 0:
                 new.append(txt[i + 1])
-                print(new)
         i += 1
     hist = Dictogram(new)
     return hist
