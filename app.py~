@@ -13,7 +13,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    txt = read("static/buddha.txt")
+    txt = read("buddha.txt")
     order = int(sys.argv[2])
     rand = random.randrange(0, len(txt) - 1)
     window = Queue()
