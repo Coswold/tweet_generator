@@ -1,5 +1,3 @@
-#!python
-
 from flask import Flask, render_template
 import sys
 import random
@@ -16,14 +14,15 @@ app = Flask(__name__)
 @app.route("/")
 def home():
     txt = read("static/buddha.txt")
-    order = int(sys.argv[2])
+    order = random.randint(1, 5)
     rand = random.randrange(0, len(txt) - 1)
     window = Queue()
     i = 0
     while i < order:
         window.enqueue(txt[rand + i])
-        i += 1 
-    sentence = build_string(30, window, txt)
+        i += 1
+    words = random.randint(12, 20) 
+    sentence = build_string(words, window, txt)
     sentence = grammar(sentence)
 
     return render_template("template.html", sentence = sentence)	 
