@@ -38,5 +38,6 @@ Temporary Items
 *.rtf
 *.wpd
 *.wps
+buddha.txt
 
 # End of https://www.gitignore.io/api/text,macos
