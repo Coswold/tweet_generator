@@ -1,18 +1,27 @@
 from sample import Sampling
-from markov_chain import markov
+from markov_chain import Markov
+from queue1 import Queue1
+from clean import read
 
-def build_string (length, window, txt):
-    first_word = window.items()
-    sentence = first_word[len(first_word) - 1]
-    i = 0
-    while i < length - 1:
-        hist = markov(txt, window)
-        sample = Sampling(hist)
-        sample.get_cume()
-        previous_word = sample.sample()
-        sentence += " " + previous_word
-        window.enqueue(previous_word)
+def build_string (txt):
+    window = Queue1()
+    m = Markov(txt)
+    start = m.get_start()
+    window.enqueue(start[0])
+    window.enqueue(start[1])
+    sentence = ""
+    sentence = start[0] + " " + start[1]
+    run = True
+    while run:
+        key = window.items()
+        word = m.get_next_word((key[0], key[1]))
+        print(word)
+        if word == '[stop]':
+            break
+        sentence += " " + word
         window.dequeue()
-        i += 1
+        window.enqueue(word)
 
-    return sentence   
+    return sentence
+
+

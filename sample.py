@@ -3,7 +3,6 @@ import random
 
 class Sampling (object):
 	def __init__ (self, hist):
-		self.txt = []
 		self.cume = 0
 		self.cumulative = []
 		self.txt = list(hist.items())

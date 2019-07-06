@@ -1,22 +1,39 @@
-from dictogram import Dictogram   
+from dictogram import Dictogram
+from sample import Sampling
 
-def markov (txt, window):
-    hist = []
-    new = []
-    i = 0
-    words = window.items()
-    while i < len(txt) - 1:
-        j = len(words) - 1
-        if txt[i] == words[len(words) - 1]:
-            k = i
-            while j > 0:
-                if txt[k] == words[j]:
-                    j -= 1
-                    k -= 1
-                else:
-                    break
-            if j == 0:
-                new.append(txt[i + 1])
-        i += 1
-    hist = Dictogram(new)
-    return hist
+class Markov (object):
+
+    def __init__(self, txt):
+        self.hist = {}
+        self.start = Dictogram()
+        self.build(txt)
+
+    def build(self, txt):
+        i = 0
+        # Build initial histogram
+        while i < len(txt) - 2:
+            words = (txt[i + 1], txt[i + 2])
+            if txt[i] == '[start]':
+                self.start.add_count(words)
+            i += 1
+
+        i = 0
+        while i < len(txt) - 2:
+            key = (txt[i], txt[i + 1])
+            if key not in self.hist:
+                self.hist[key] = Dictogram()
+            self.hist[key].add_count(txt[i + 2])
+            i += 1
+
+    def get_start(self):
+        sample = Sampling(self.start)
+        sample.get_cume()
+        start = sample.sample()
+        return start
+
+    def get_next_word(self, key):
+        sample = Sampling(self.hist[key])
+        sample.get_cume()
+        word = sample.sample()
+        return word
+
