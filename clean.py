@@ -8,6 +8,7 @@ def strip_pun (string):
         else:
             no_punc += ' [stop] [start] '
 
+    no_punc += ' [stop]'
     return no_punc
 
 def read (txt):
